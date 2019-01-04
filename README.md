@@ -67,7 +67,8 @@ functions with any number of arguments.
 
 ### Build
 
-No need to build, it is a single hearder file :smile: 
+No need to build, it is a single hearder file :smile:
+ 
 You should be able to use Timer on any platforms with a C++ 11 compatible compiler.
 
 ---
