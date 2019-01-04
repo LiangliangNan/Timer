@@ -38,9 +38,6 @@ functions with any number of arguments.
         Car(const std::string& name, float speed);
         void print_speed();
         void stop();
-    private:
-        std::string name_;
-        float       speed_;
     };
 
     // car 1 reports its speed every 2 seconds and it stops after 10 seconds
