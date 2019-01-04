@@ -79,6 +79,6 @@ Should you have any questions, comments, or suggestions, please contact me at li
 
 https://3d.bk.tudelft.nl/liangliang/
 
-Jan. 3, 2018
+Jan. 3, 2019
 
-Copyright (C) 2018
+Copyright (C) 2019
