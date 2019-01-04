@@ -1,7 +1,6 @@
 # Timer
 
-### A single-header C++ class that provides a high-level programming interface 
-for timers.
+### A single-header C++ class that provides a high-level programming interface for timers.
 
 Timer functionalities are usually implemented in large libraries (e.g., the 
 [QTimer of Qt](http://doc.qt.io/archives/qt-5.5/qtimer.html)). 
