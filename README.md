@@ -13,9 +13,6 @@ functions with any number of arguments.
 
 #### Example 1: calling to non-member functions
 ```c++
-    // create a timer instance
-    Timer t;
-
     // the function you want to call at a constant interval
     void foo(int value);
 
