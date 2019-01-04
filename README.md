@@ -1,13 +1,15 @@
 # Timer
 
-### A single-header C++ class that provides a high-level programming interface for timers.
+### A single-header C++ class that provides a high-level programming interface 
+for timers.
 
-Timer functionalities are usually implemented in large libraries (e.g., the [QTimer of Qt](http://doc.qt.io/archives/qt-5.5/qtimer.html)). 
+Timer functionalities are usually implemented in large libraries (e.g., the 
+[QTimer of Qt](http://doc.qt.io/archives/qt-5.5/qtimer.html)). 
 This Timer class provides a single-header implementation.
 
-With Timer, you can easily schedule your tasks (i.e., calling to any functions) 
-at either constant intervals or after a specified period. Timer supports any types
-of functions with any number of arguments, e.g.,
+With Timer, tasks (i.e., calling to functions) can be easily scheduled at either 
+constant intervals or after a specified period. Timer supports any types of 
+functions with any number of arguments, e.g.,
  - non-member functions;
  - lambda functions;
  - member functions of classes.
