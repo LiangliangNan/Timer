@@ -8,10 +8,7 @@ This Timer class provides a single-header implementation.
 
 With Timer, tasks (i.e., calling to functions) can be easily scheduled at either 
 constant intervals or after a specified period. Timer supports any types of 
-functions with any number of arguments, e.g.,
- - non-member functions;
- - lambda functions;
- - member functions of classes.
+functions with any number of arguments.
 
 
 #### Example 1: calling to non-member functions
