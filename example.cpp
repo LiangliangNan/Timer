@@ -35,7 +35,8 @@ int main()
 {
     Timer t;
 
-#if 0     // -------- test for non-member functions ----------
+#if 1
+    // -------- test for non-member functions ----------
 
     // call to non-member function
     const int v = 333;
@@ -46,16 +47,15 @@ int main()
     // call to lambda function without arguments
     t.set_interval([&]() {
         std::cout << "After each 2 sec." << std::endl;
-    }, 2000);
+    }, 2050);
 
     // call to lambda function with arguments
     const float value = 5;
     t.set_interval([&](float, const std::string&) {
         std::cout << "After each 3 sec. value: " << value << ", msg: " << msg << std::endl;
-    }, 3000, value, msg);
+    }, 3030, value, msg);
 
 #else
-
     // -------- test for member functions ----------
 
     Car car1("BMW", 180);
