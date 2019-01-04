@@ -35,7 +35,7 @@ int main()
 {
     Timer t;
 
-#if 1
+#if 0
     // -------- test for non-member functions ----------
 
     // call to non-member function
