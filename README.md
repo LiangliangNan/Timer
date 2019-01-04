@@ -1,3 +1,4 @@
+<img src="timer.png" width="80">
 # Timer
 
 ### A single-header C++ class that provides a high-level programming interface for timers.
