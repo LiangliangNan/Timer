@@ -63,13 +63,13 @@ namespace easy3d {
      *
      *   // car 1 reports its speed every 2 seconds and it stops after 10 seconds
      *   Car car1("BMW", 180);
-     *   t.set_interval_m(2000, &Car::print_speed, &car1);
-     *   t.set_timeout_m(10000, &Car::stop, &car1);
+     *   t.set_interval(2000, &Car::print_speed, &car1);
+     *   t.set_timeout(10000, &Car::stop, &car1);
      *
      *   // car 2 reports its speed every 3 seconds and it stops after 20 seconds
      *   Car car2("Chevrolet", 120);
-     *  t.set_interval_m(3000, &Car::print_speed, &car2);
-     *  t.set_timeout_m(20000, &Car::stop, &car2);
+     *  t.set_interval(3000, &Car::print_speed, &car2);
+     *  t.set_timeout(20000, &Car::stop, &car2);
      *
      *### Example 3: calling to lambda functions
      *  const float value = 5;
@@ -128,7 +128,7 @@ namespace easy3d {
         template <class Function, class... Args >
         void set_timeout(int delay, Function&& func, Args&&... args);
 
-        /* the same as single_shot_m() except that it is not static.
+        /* the same as single_shot() except that it is not static.
          * execute member function 'func' of class 'owner' after 'delay' milliseconds.
          * owner: the pointer to 'Class' instance, e.g., '&a' for 'Class a' or 'this' within Class.
          * func:  the pointer to the member function of 'Class', e.g., '&Class::foo()'.
@@ -161,9 +161,9 @@ namespace easy3d {
          * interval: the interval, in milliseconds.
          * NOTE: arguments must be "const", e.g.,
          *      const std::string speed = "Speed: ";
-         *      timer.set_interval_m(10000, &Car::print_speed, car, speed);
+         *      timer.set_interval(10000, &Car::print_speed, car, speed);
          * so this won't work
-         *      timer.set_interval_m(10000, &Car::print_speed, car, "Speed: ");
+         *      timer.set_interval(10000, &Car::print_speed, car, "Speed: ");
          */
         template < class Class, class Function, class... Args >
         void set_interval(int interval, Function&& func, Class&& owner, Args&&... args);
