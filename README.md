@@ -22,10 +22,10 @@ functions) with any number of arguments.
 
     const int value = 333;
     // function "foo" will be executed every second.
-    t.set_interval(&foo, 1000, value);
+    t.set_interval(1000, &foo, value);
 
     // function "timeout()" will be executed after 3 seconds.
-    t.set_timeout(&timeout, 3000);
+    t.set_timeout(3000, &timeout);
 ```
 
 #### Example 2: calling to member functions
@@ -40,27 +40,27 @@ functions) with any number of arguments.
 
     // car 1 reports its speed every 2 seconds and it stops after 10 seconds
     Car car1("BMW", 180);
-    t.set_interval_m(&car1, &Car::print_speed, 2000);
-    t.set_timeout_m(&car1, &Car::stop, 10000);
+    t.set_interval(2000, &Car::print_speed, &car1);
+    t.set_timeout(10000, &Car::stop, &car1);
 
     // car 2 reports its speed every 3 seconds and it stops after 20 seconds
     Car car2("Chevrolet", 120);
-    t.set_interval_m(&car2, &Car::print_speed, 3000);
-    t.set_timeout_m(&car2, &Car::stop, 20000);
+    t.set_interval(3000, &Car::print_speed, &car2);
+    t.set_timeout(20000, &Car::stop, &car2);
 ```
 
 
 #### Example 3: calling to lambda functions
 ```c++
     const float value = 5;
-    t.set_interval([&](float, const std::string&) {
+    t.set_interval(3000, [&](float, const std::string&) {
         std::cout << "After every 3 sec. value: " << value << ", message: " << msg << std::endl;
-    }, 3000, value, msg);
+    }, value, msg);
 
-    t.set_timeout([&]() {
+    t.set_timeout(8000, [&]() {
         t.stop();
         std::cout << "After 8 sec, the timer is stopped!" << std::endl;
-    }, 8000);
+    });
 ```
 
 ### Build
