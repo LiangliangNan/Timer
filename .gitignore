@@ -31,3 +31,4 @@
 *.out
 *.app
 example.cpp.autosave
+*.user
