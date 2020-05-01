@@ -32,3 +32,6 @@
 *.app
 example.cpp.autosave
 *.user
+.idea
+cmake-build-debug
+cmake-build-release
