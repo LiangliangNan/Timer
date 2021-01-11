@@ -38,51 +38,53 @@ private:
 
 int main()
 {
-    easy3d::Timer t;
+    // -------- for non member functions ----------
 
-#if 0
-    // -------- test for non-member functions ----------
+    {   // non-member function without argument
+        easy3d::Timer<> t;
+        t.set_timeout(3000, &timeout);
+    }
 
-    // call to non-member function
-    const int v = 333;
-    const std::string msg = "some random string";
-    t.set_interval(2000, &foo, v, msg);
-    t.set_timeout(3000, &timeout);
+    {   // non-member function with arguments
+        easy3d::Timer<int, const std::string &> t;
+        const int v = 333;
+        const std::string msg = "some random string";
+        t.set_interval(2000, &foo, v, msg);
+    }
 
-    // call to lambda function without arguments
-    t.set_interval(2050, [&]() {
-        std::lock_guard<std::mutex> guard(mutex);
-        std::cout << "After each 2 sec." << std::endl;
-    });
+    {   // lambda function without arguments
+        easy3d::Timer<> t;
+        t.set_interval(2050, [&]() {
+            std::lock_guard<std::mutex> guard(mutex);
+            std::cout << "After each 2 sec." << std::endl;
+        });
+    }
 
-    // call to lambda function with arguments
-    const float value = 5;
-    t.set_interval(3030, [&](float, const std::string&) {
-        std::lock_guard<std::mutex> guard(mutex);
-        std::cout << "After each 3 sec. value: " << value << ", msg: " << msg << std::endl;
-    }, value, msg);
+    {   // lambda function with arguments
+        easy3d::Timer<int, const std::string &> t;
+        t.set_interval(3030, [&](float value, const std::string& msg) {
+            std::lock_guard<std::mutex> guard(mutex);
+            std::cout << "After each 3 sec. value: " << value << ", msg: " << msg << std::endl;
+        }, 5, "blabla...");
+    }
 
-#else
-    // -------- test for member functions ----------
+    // -------- for member functions ----------
 
-    Car car1("BMW", 180);
-    t.set_interval(1000, &Car::print_speed, &car1);
-    t.set_timeout(6000, &Car::stop, &car1);
+    { // member function without argument
+        easy3d::Timer<> t;
+        Car car1("BMW", 180);
+        t.set_interval(1000, &car1, &Car::print_speed);
+        t.set_timeout(6000, &car1, &Car::stop);
+    }
 
-    Car car2("Chevrolet", 120);
-    t.set_interval(1000, &Car::print_speed, &car2);
-    t.set_timeout(4000, &Car::stop, &car2);
-
-#endif
-
-    t.set_timeout(8000, [&]() {
-        std::lock_guard<std::mutex> guard(mutex);
-        t.stop();
-        std::cout << "After 8 sec, the timer is stopped!" << std::endl;
-        exit(0);
-    });
+    { // member function without argument
+        easy3d::Timer<> t;
+        Car car2("Chevrolet", 120);
+        t.set_interval(1000, &car2, &Car::print_speed);
+        t.set_timeout(4000, &car2, &Car::stop);
+    }
 
     std::cout << "Timer started..." <<std::endl;
-
-    while(true); // Keep main thread active
+    std::this_thread::sleep_for(std::chrono::seconds(5));
+    return EXIT_SUCCESS;
 }
