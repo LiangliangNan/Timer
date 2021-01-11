@@ -85,6 +85,9 @@ int main()
     }
 
     std::cout << "Timer started..." <<std::endl;
+
+    // keep the main thread alive for a short period.
     std::this_thread::sleep_for(std::chrono::seconds(5));
+
     return EXIT_SUCCESS;
 }
