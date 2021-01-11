@@ -14,53 +14,82 @@ functions) with any number of arguments.
 
 #### Example 1: calling to non-member functions
 ```c++
-    // the function you want to call at a constant interval
-    void foo(int value);
+    void foo(int value, const std::string& msg) {
+        std::lock_guard<std::mutex> guard(mutex);
+        std::cout << "foo: " << value << ", " << msg << std::endl;
+    }
+    
+    void timeout() {
+        std::lock_guard<std::mutex> guard(mutex);
+        std::cout << "timeout" << std::endl;
+    }
+    
+    {   // non-member function without argument
+        easy3d::Timer<> t;
+        t.set_timeout(3000, &timeout);
+    }
 
-    // the function to be called when timeout.
-    void timeout();
-
-    const int value = 333;
-    // function "foo" will be executed every second.
-    t.set_interval(1000, &foo, value);
-
-    // function "timeout()" will be executed after 3 seconds.
-    t.set_timeout(3000, &timeout);
+    {   // non-member function with arguments
+        easy3d::Timer<int, const std::string &> t;
+        const int v = 333;
+        const std::string msg = "some random string";
+        t.set_interval(2000, &foo, v, msg);
+    }
 ```
 
 #### Example 2: calling to member functions
 ```c++
     // a trivial class
     class Car {
-    public:
-        Car(const std::string& name, float speed);
-        void print_speed();
-        void stop();
+        public:
+        Car(const std::string& name, float speed) : name_(name), speed_(speed) {}
+        void print_speed() {
+            std::lock_guard<std::mutex> guard(mutex);
+            std::cout << "speed of car "<< name_<< ": " << speed_ << std::endl;
+        }
+        void stop() {
+            std::lock_guard<std::mutex> guard(mutex);
+            speed_ = 0;
+            std::cout << "car " << name_ << " stoped" << std::endl;
+        }
+        private:
+            std::string name_;
+            float       speed_;
     };
 
-    // car 1 reports its speed every 2 seconds and it stops after 10 seconds
-    Car car1("BMW", 180);
-    t.set_interval(2000, &Car::print_speed, &car1);
-    t.set_timeout(10000, &Car::stop, &car1);
-
-    // car 2 reports its speed every 3 seconds and it stops after 20 seconds
-    Car car2("Chevrolet", 120);
-    t.set_interval(3000, &Car::print_speed, &car2);
-    t.set_timeout(20000, &Car::stop, &car2);
+    { // member function without argument
+        easy3d::Timer<> t;
+        Car car1("BMW", 180);
+        t.set_interval(1000, &car1, &Car::print_speed);
+        t.set_timeout(6000, &car1, &Car::stop);
+    }
+    
+    { // member function without argument
+        easy3d::Timer<> t;
+        Car car2("Chevrolet", 120);
+        t.set_interval(1000, &car2, &Car::print_speed);
+        t.set_timeout(4000, &car2, &Car::stop);
+    }
 ```
 
 
 #### Example 3: calling to lambda functions
 ```c++
-    const float value = 5;
-    t.set_interval(3000, [&](float, const std::string&) {
-        std::cout << "After every 3 sec. value: " << value << ", message: " << msg << std::endl;
-    }, value, msg);
+    {   // lambda function without arguments
+        easy3d::Timer<> t;
+        t.set_interval(2050, [&]() {
+            std::lock_guard<std::mutex> guard(mutex);
+            std::cout << "After each 2 sec." << std::endl;
+        });
+    }
 
-    t.set_timeout(8000, [&]() {
-        t.stop();
-        std::cout << "After 8 sec, the timer is stopped!" << std::endl;
-    });
+    {   // lambda function with arguments
+        easy3d::Timer<int, const std::string &> t;
+        t.set_interval(3030, [&](float value, const std::string& msg) {
+            std::lock_guard<std::mutex> guard(mutex);
+            std::cout << "After each 3 sec. value: " << value << ", msg: " << msg << std::endl;
+        }, 5, "blabla...");
+    }
 ```
 
 ### Build
